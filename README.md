@@ -19,7 +19,7 @@ Responsive UI: Works well on both mobile and desktop devices.
 ### Clone the repo
 
 ```bash
-git clone https://github.com/your-username/mobile-store-frontend.git
+git clone https://github.com/JayeshJadhav1107/mobile_store_frontend.git
 cd mobile-store-frontend
 ```
 
