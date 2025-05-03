@@ -50,11 +50,19 @@ export default function AdminPage() {
             </div>
 
             {/* Display product cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {products.map((product) => (
-                    <ProductCard key={product.ID} product={product} role="admin" onViewDetails={setSelectedProduct} />
-                ))}
-            </div>
+            {products.length === 0 ? (
+                <div className="flex justify-center items-center h-64">
+                    <p className="text-2xl font-semibold text-gray-500 text-center">
+                        You haven’t created any products yet. <br /> Click on “Add New Product” to get started!
+                    </p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {products.map((product) => (
+                        <ProductCard key={product.ID} product={product} role="admin" onViewDetails={setSelectedProduct} />
+                    ))}
+                </div>
+            )}
 
             {/* Product detail modal */}
             {selectedProduct && (

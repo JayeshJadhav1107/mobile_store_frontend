@@ -8,6 +8,7 @@ export default function CreateProduct() {
         description: "",
         price: 0,
     });
+    const [successPopup, setSuccessPopup] = useState(false);
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -19,7 +20,9 @@ export default function CreateProduct() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            alert("Product created successfully!");
+            setSuccessPopup(true);
+            setTimeout(() => setSuccessPopup(false), 2000); // auto-close after 2 seconds
+
             // Reset form
             setProduct({ name: "", description: "", price: 0 });
         } catch (err) {
@@ -27,11 +30,21 @@ export default function CreateProduct() {
             alert("Error creating product: " + (err.response?.data?.error || err.message));
         }
     };
-    
+
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
             <h2 className="text-xl font-semibold mb-4">Create New Product</h2>
+
+            {successPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-8 rounded shadow-lg text-center max-w-sm w-full">
+                        <h2 className="text-2xl font-bold text-green-600 mb-4">✅ Product Created</h2>
+                        <p className="text-gray-700">Your product has been successfully added!</p>
+                    </div>
+                </div>
+            )}
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -62,7 +75,6 @@ export default function CreateProduct() {
                     className="w-full p-2 mb-3 border"
                     value={product.url}
                     onChange={(e) => setProduct({ ...product, url: e.target.value })}
-                    required
                 />
                 <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded">
                     Create Product
