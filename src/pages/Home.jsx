@@ -53,11 +53,19 @@ export default function Home() {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {products.map((p) => (
-                    <ProductCard key={p.ID} product={p} role={role} onViewDetails={setSelectedProduct} />
-                ))}
-            </div>
+            {products.length === 0 ? (
+                <div className="flex justify-center items-center h-64">
+                    <p className="text-2xl font-semibold text-gray-500 text-center">
+                        No Products Available. <br /> Please check back later or contact the store admin.
+                    </p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {products.map((p) => (
+                        <ProductCard key={p.ID} product={p} role={role} onViewDetails={setSelectedProduct} />
+                    ))}
+                </div>
+            )}
 
             {/* Product Detail Modal */}
             {selectedProduct && (
